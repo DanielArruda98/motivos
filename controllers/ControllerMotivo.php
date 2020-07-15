@@ -26,4 +26,18 @@
         }
     }
 
+    if(isset($_POST['btn_show_mensagens'])) {
+        $number = $_POST['number'];
+
+        $consulta = $motivo->consultar($number);
+
+        foreach($consulta as $motivo) {
+            mensagem($motivo['titulo'], $motivo['texto']);
+        }
+    }
+
+    if(isset($_POST['total_mensagens'])) {
+        echo count($motivo->listar());
+    }
+
 ?>

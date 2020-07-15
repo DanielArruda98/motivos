@@ -53,6 +53,29 @@
             }   
         }
 
+        public function consultar($start) {
+            $conexao = new Conexao();
+            $connection = $conexao->conectar();
+
+            try {
+                $sql = "SELECT * FROM motivos ORDER BY id_motivo LIMIT 3 OFFSET $start";
+
+                $consulta = $connection->prepare($sql);
+
+                $consulta->execute();
+                $vl = $consulta->rowCount();
+        
+                if ($vl > 0) {
+                    return $consulta->fetchAll();
+                } 
+
+            } catch (PDOException $e) {
+                echo "Erro de cadastrar motivo: " . $e->getMessage();
+            } catch (Exception $e) {
+                echo "Erro: " . $e->getMessage();
+            }   
+        }
+
         public function excluir($id) {
             $conexao = new Conexao();
             $connection = $conexao->conectar();
